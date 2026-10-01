@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LernLevel – Lernen, Level für Level</title>
+<meta name="description" content="LernLevel: Lern-Apps, die mitwachsen. Ohne Werbung, ohne Datensammlung. Matheprofi für Klasse 1 bis 4.">
+<link rel="icon" href="favicon.svg">
+<style>
+:root {
+  --ink: #1d2b36;
+  --petrol: #1f4e5f;
+  --petrol-dark: #122f3a;
+  --petrol-light: #2d6a7e;
+  --amber: #f2a33a;
+  --amber-dark: #d9861c;
+  --paper: #f7f3ec;
+  --card: #fff;
+  --muted: #5d6b75;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.55;
+}
+a { color: var(--petrol); }
+.wrap { max-width: 64rem; margin: 0 auto; padding: 0 1.25rem; }
+.amber { color: var(--amber); }
+
+/* ---------- Kopf ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(circle at 78% 30%, rgba(242, 163, 58, .28), transparent 38%),
+    radial-gradient(circle at 10% 90%, rgba(45, 106, 126, .9), transparent 45%),
+    linear-gradient(160deg, var(--petrol-dark), var(--petrol));
+  padding-bottom: 5.5rem;
+}
+.nav { display: flex; align-items: center; gap: .6rem; padding: 1rem 0; position: relative; z-index: 2; }
+.brand { color: #fff; font-weight: 900; font-size: 1.4rem; text-decoration: none; letter-spacing: -.01em; }
+.brand b { color: var(--amber); }
+.nav .links { margin-left: auto; display: flex; gap: 1.2rem; }
+.nav .links a { color: rgba(255,255,255,.85); text-decoration: none; font-weight: 600; }
+.nav .links a:hover { color: var(--amber); }
+
+.hero-grid {
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 2rem; align-items: center;
+  position: relative; z-index: 2; padding-top: 2rem;
+}
+.kicker {
+  display: inline-block; background: rgba(242, 163, 58, .18); color: var(--amber);
+  border: 1px solid rgba(242, 163, 58, .5); border-radius: 999px;
+  padding: .2rem .9rem; font-weight: 700; font-size: .9rem; margin-bottom: 1rem;
+}
+.hero h1 { font-size: clamp(2.4rem, 6.5vw, 4rem); line-height: 1.02; margin: 0 0 1.2rem; font-weight: 900; letter-spacing: -.02em; }
+.hero h1 b { color: var(--amber); }
+.hero .lead { font-size: 1.2rem; max-width: 32rem; margin: 0 0 1.8rem; opacity: .92; }
+.buttons { display: flex; gap: .8rem; flex-wrap: wrap; }
+.btn {
+  display: inline-block; padding: .8rem 1.4rem; border-radius: 14px; font-weight: 800;
+  text-decoration: none; transition: transform .15s, box-shadow .15s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--amber); color: var(--petrol-dark); box-shadow: 0 5px 0 var(--amber-dark); }
+.btn-primary:hover { box-shadow: 0 7px 0 var(--amber-dark); }
+.btn-ghost { color: #fff; border: 2px solid rgba(255,255,255,.4); }
+
+/* Level-Karte */
+.map { width: 100%; max-width: 26rem; justify-self: center; overflow: visible; }
+.map .path { stroke-dasharray: 2 14; stroke-linecap: round; animation: march 1.6s linear infinite; }
+.map .node-on { animation: pulse 2.4s ease-in-out infinite; transform-origin: 80px 350px; }
+.map text { font-family: inherit; }
+@keyframes march { to { stroke-dashoffset: -16; } }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+
+/* schwebende Zeichen: von 1+1 bis E=mc² */
+.float { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.float span {
+  position: absolute; color: rgba(255,255,255,.09); font-weight: 900;
+  font-size: var(--s, 2rem); animation: drift var(--d, 9s) ease-in-out infinite alternate;
+}
+@keyframes drift { from { transform: translateY(0) rotate(-6deg); } to { transform: translateY(-18px) rotate(6deg); } }
+
+/* Treppe als Übergang */
+.stairs { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 70px; z-index: 2; }
+
+/* ---------- Abschnitte ---------- */
+section { padding: 3.5rem 0 1rem; }
+.eyebrow { color: var(--amber-dark); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; font-size: .85rem; margin: 0 0 .3rem; }
+h2 { font-size: clamp(1.7rem, 4vw, 2.3rem); margin: 0 0 1.5rem; line-height: 1.15; letter-spacing: -.01em; }
+
+/* Level 1: Matheprofi */
+.unlocked { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: center; }
+.app-head { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+.app-head img { width: 84px; height: 84px; border-radius: 20px; box-shadow: 0 6px 18px rgba(18, 47, 58, .25); transform: rotate(-4deg); }
+.app-head h3 { margin: 0; font-size: 1.8rem; font-weight: 900; }
+.badge { display: inline-block; background: var(--amber); color: var(--petrol-dark); font-weight: 800; font-size: .85rem; border-radius: 8px; padding: .1rem .6rem; }
+.achievements { display: grid; grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)); gap: .6rem; margin: 1.4rem 0; padding: 0; list-style: none; }
+.achievements li {
+  background: var(--card); border-radius: 12px; padding: .55rem .8rem;
+  display: flex; align-items: center; gap: .6rem; font-weight: 600;
+  box-shadow: 0 2px 0 #e7dfd2;
+}
+.achievements li span { font-size: 1.3rem; }
+.soon-play { font-weight: 800; color: var(--petrol); }
+
+/* Handy mit Rechenmauer */
+.phone {
+  position: relative; width: 270px; justify-self: center; background: var(--petrol-dark); border-radius: 38px; padding: 11px;
+  box-shadow: 0 24px 50px rgba(18, 47, 58, .35); transform: rotate(3deg);
+}
+.phone img { display: block; width: 100%; height: auto; border-radius: 28px; }
+.phone .sticker {
+  position: absolute; right: -2.4rem; top: 10.5rem; transform: rotate(8deg);
+  background: var(--amber); color: var(--petrol-dark); font-weight: 900; font-size: .95rem;
+  padding: .45rem .9rem; border-radius: 12px; box-shadow: 0 4px 0 var(--amber-dark);
+}
+
+/* nächste Level */
+.locked { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; }
+.lock {
+  position: relative; border-radius: 18px; padding: 1.3rem 1.2rem 1.2rem;
+  background: repeating-linear-gradient(135deg, #efe9df 0 12px, #f4efe7 12px 24px);
+  border: 2px dashed #cfc5b5; color: var(--muted);
+}
+.lock .num { font-size: 2.6rem; font-weight: 900; color: #d6ccbc; line-height: 1; }
+.lock h3 { margin: .4rem 0 .2rem; color: var(--ink); opacity: .75; }
+.lock p { margin: 0; }
+.lock .icon { position: absolute; right: 1rem; top: 1rem; font-size: 1.6rem; filter: grayscale(.2); }
+
+/* Spielregeln */
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(13.5rem, 1fr)); gap: 1rem; }
+.rule {
+  background: var(--card); border-radius: 18px; padding: 1.3rem 1.2rem;
+  box-shadow: 0 4px 0 #e7dfd2; transition: transform .2s;
+}
+.rule:nth-child(odd) { transform: rotate(-1deg); }
+.rule:nth-child(even) { transform: rotate(1deg); }
+.rule:hover { transform: rotate(0) translateY(-4px); }
+.rule .ico {
+  width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center;
+  font-size: 1.6rem; background: #fdf0dc; margin-bottom: .7rem;
+}
+.rule b { display: block; font-size: 1.1rem; margin-bottom: .2rem; }
+.rule p { margin: 0; color: var(--muted); }
+
+/* Kontakt */
+.contact {
+  margin-top: 3.5rem; background: linear-gradient(160deg, var(--petrol-dark), var(--petrol));
+  color: #fff; border-radius: 28px; padding: 2.2rem; display: grid; grid-template-columns: auto 1fr; gap: 1.6rem; align-items: center;
+  position: relative; overflow: hidden;
+}
+.contact .avatar {
+  width: 88px; height: 88px; border-radius: 50%; background: var(--amber); display: grid; place-items: center; font-size: 2.6rem;
+}
+.contact h2 { color: #fff; margin: 0 0 .4rem; }
+.contact p { margin: 0 0 1.2rem; opacity: .9; max-width: 36rem; }
+footer { text-align: center; color: var(--muted); padding: 3rem 1rem 2.5rem; }
+
+@media (max-width: 760px) {
+  .hero-grid, .unlocked { grid-template-columns: 1fr; }
+  .map { max-width: 20rem; }
+  .nav .links { display: none; }
+  .contact { grid-template-columns: 1fr; text-align: center; }
+  .contact .avatar { margin: 0 auto; }
+  .contact p { margin-left: auto; margin-right: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="float" aria-hidden="true">
+    <span style="left:4%;top:18%;--s:2.4rem;--d:8s">1+1</span>
+    <span style="left:44%;top:10%;--s:1.8rem;--d:11s">÷</span>
+    <span style="left:36%;top:62%;--s:2.6rem;--d:9s">π</span>
+    <span style="left:8%;top:70%;--s:1.6rem;--d:12s">ABC</span>
+    <span style="left:57%;top:78%;--s:1.7rem;--d:10s">√x</span>
+    <span style="left:88%;top:12%;--s:1.6rem;--d:9s">E=mc²</span>
+    <span style="left:92%;top:66%;--s:2rem;--d:13s">∑</span>
+    <span style="left:24%;top:40%;--s:1.4rem;--d:10s">H₂O</span>
+    <span style="left:70%;top:50%;--s:1.5rem;--d:11s">a²+b²</span>
+  </div>
+
+  <div class="wrap">
+    <nav class="nav">
+      <svg width="38" height="38" viewBox="0 0 34 34" aria-hidden="true">
+        <rect x="1" y="1" width="32" height="32" rx="9" fill="#f2a33a"/>
+        <path d="M8.5 12.5V25.5H16.5M17.5 7V19.5H26" stroke="#122f3a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <a class="brand" href="./"><b>L</b>ern<b>L</b>evel</a>
+      <div class="links"><a href="#apps">Apps</a><a href="#regeln">Versprechen</a><a href="#kontakt">Kontakt</a></div>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <span class="kicker">⭐ Lern-Apps ohne Werbung</span>
+        <h1><b>L</b>ernen,<br><b>L</b>evel für <b>L</b>evel.</h1>
+        <p class="lead">Von 1 + 1 bis E = mc²: Lern-Apps, die mitwachsen. Mit Köpfchen gemacht, ohne Ablenkung und ohne Datensammlung.</p>
+        <div class="buttons">
+          <a class="btn btn-primary" href="#apps">Level 1 ansehen</a>
+          <a class="btn btn-ghost" href="#regeln">Unsere Spielregeln</a>
+        </div>
+      </div>
+
+      <!-- Level-Welt: ein Pfad mit vier Stationen -->
+      <svg class="map" viewBox="0 0 400 430" role="img" aria-label="Level-Karte: Grundschule freigeschaltet, Mittelstufe, Oberstufe und Ausbildung & Studium folgen">
+        <defs>
+          <clipPath id="iconClip"><rect x="48" y="318" width="64" height="64" rx="16"/></clipPath>
+        </defs>
+        <path class="path" d="M80 350 C 200 350, 300 330, 290 262 S 120 230, 120 170 S 260 100, 320 70" stroke="#f2a33a" stroke-width="6" fill="none"/>
+        <!-- Level 4 -->
+        <g>
+          <circle cx="320" cy="70" r="30" fill="#2d6a7e" stroke="#4b8799" stroke-width="3"/>
+          <text x="320" y="80" text-anchor="middle" font-size="26">🏁</text>
+          <text x="320" y="26" text-anchor="middle" fill="#fff" opacity=".75" font-size="15" font-weight="700">Ausbildung &amp; Studium</text>
+        </g>
+        <!-- Level 3 -->
+        <g>
+          <circle cx="120" cy="170" r="28" fill="#2d6a7e" stroke="#4b8799" stroke-width="3"/>
+          <text x="120" y="179" text-anchor="middle" font-size="22">🔒</text>
+          <text x="162" y="160" fill="#fff" opacity=".75" font-size="15" font-weight="700">Oberstufe</text>
+        </g>
+        <!-- Level 2 -->
+        <g>
+          <circle cx="290" cy="262" r="28" fill="#2d6a7e" stroke="#4b8799" stroke-width="3"/>
+          <text x="290" y="271" text-anchor="middle" font-size="22">🔒</text>
+          <text x="250" y="292" text-anchor="end" fill="#fff" opacity=".75" font-size="15" font-weight="700">Mittelstufe</text>
+        </g>
+        <!-- Level 1: freigeschaltet -->
+        <g class="node-on">
+          <circle cx="80" cy="350" r="44" fill="#f2a33a" opacity=".3"/>
+          <rect x="44" y="314" width="72" height="72" rx="19" fill="#f2a33a"/>
+          <image href="matheprofi/icon.png" x="48" y="318" width="64" height="64" clip-path="url(#iconClip)"/>
+        </g>
+        <text x="136" y="378" fill="#fff" font-size="16" font-weight="800">Level 1: Grundschule</text>
+        <text x="136" y="398" fill="#f2a33a" font-size="14" font-weight="700">★ freigeschaltet</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Treppe als Übergang, wie im Logo -->
+  <svg class="stairs" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true">
+    <polygon points="0,70 0,52 300,52 300,36 600,36 600,20 900,20 900,4 1200,4 1200,70" fill="#f7f3ec"/>
+  </svg>
+</header>
+
+<main class="wrap">
+
+<section id="apps">
+  <div class="unlocked">
+    <div>
+      <p class="eyebrow">Level 1 · freigeschaltet</p>
+      <div class="app-head">
+        <img src="matheprofi/icon.png" alt="App-Symbol von Matheprofi">
+        <div><h3>Matheprofi</h3><span class="badge">Klasse 1–4</span></div>
+      </div>
+      <p>Der ganze Mathe-Stoff der Grundschule, passend zum Lehrplan, mit Tageszielen, Stickeralbum und einem Bericht für die Eltern.</p>
+      <ul class="achievements">
+        <li><span>🧱</span>Rechenmauern</li>
+        <li><span>✏️</span>Schriftlich rechnen</li>
+        <li><span>💶</span>Geld zählen &amp; legen</li>
+        <li><span>🕐</span>Uhr &amp; Zeitspannen</li>
+        <li><span>💡</span>Knobelaufgabe des Tages</li>
+        <li><span>🪢</span>Familienduell zu zweit</li>
+        <li><span>🔊</span>Aufgaben vorlesen</li>
+        <li><span>🏅</span>Stickeralbum</li>
+      </ul>
+      <p class="soon-play">▶ Bald bei Google Play · <a href="matheprofi/">Mehr erfahren ›</a></p>
+    </div>
+
+    <div class="phone">
+      <img src="matheprofi/rechenmauer.jpg" width="540" height="1200" alt="Matheprofi: Rechenmauer mit 100, 200, 200 in der unteren Reihe, 300 und 400 sind schon eingetragen">
+      <span class="sticker">Und oben? 🤔</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">Die nächsten Level</p>
+  <h2>Es geht weiter nach oben.</h2>
+  <div class="locked">
+    <div class="lock"><span class="icon">🔒</span><div class="num">2</div><h3>Mittelstufe</h3><p>Neue Apps sind in Arbeit.</p></div>
+    <div class="lock"><span class="icon">🔒</span><div class="num">3</div><h3>Oberstufe</h3><p>Kommt später.</p></div>
+    <div class="lock"><span class="icon">🏁</span><div class="num">4</div><h3>Ausbildung &amp; Studium</h3><p>Das Ziel ganz oben.</p></div>
+  </div>
+</section>
+
+<section id="regeln">
+  <p class="eyebrow">Unsere Spielregeln</p>
+  <h2>Darauf kannst du dich in jedem Level verlassen.</h2>
+  <div class="rules">
+    <div class="rule"><div class="ico">🚫</div><b>Keine Werbung</b><p>Nichts blinkt, nichts lenkt ab. Nur du und die Aufgabe.</p></div>
+    <div class="rule"><div class="ico">🔒</div><b>Deine Daten bleiben bei dir</b><p>Kein Konto, keine Tracker, kein Verkauf von Daten.</p></div>
+    <div class="rule"><div class="ico">📴</div><b>Offline</b><p>Im Auto, im Garten, im Urlaub: Lernen klappt ohne Internet.</p></div>
+    <div class="rule"><div class="ico">💶</div><b>Fair bezahlt</b><p>Viel kostenlos, der Rest als Einmalkauf. Kein Abo, keine Tricks.</p></div>
+  </div>
+</section>
+
+<div class="contact" id="kontakt">
+  <div class="avatar">👋</div>
+  <div>
+    <h2>Hi, ich bin Dennis.</h2>
+    <p>Ich entwickle LernLevel allein, mit viel Liebe zum Detail. Du hast eine Frage, einen Wunsch oder einen Fehler gefunden? Schreib mir, ich lese jede Nachricht.</p>
+    <a class="btn btn-primary" href="mailto:support@lernlevel.de">✉ support@lernlevel.de</a>
+  </div>
+</div>
+</main>
+
+<footer>
+  <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a><br>
+  © 2026 LernLevel
+</footer>
+</body>
+</html>

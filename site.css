@@ -1,0 +1,37 @@
+/* Gemeinsame Gestaltung für Unterseiten (App-Seiten, Impressum, Datenschutz) */
+:root {
+  --ink: #1d2b36;
+  --petrol: #1f4e5f;
+  --petrol-dark: #122f3a;
+  --amber: #f2a33a;
+  --amber-dark: #d9861c;
+  --paper: #f7f3ec;
+  --card: #fff;
+  --muted: #5d6b75;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+}
+a { color: var(--petrol); }
+.wrap { max-width: 50rem; margin: 0 auto; padding: 0 1.25rem; }
+
+/* Kopfleiste */
+.bar { background: linear-gradient(160deg, var(--petrol-dark), var(--petrol)); }
+.bar .wrap { display: flex; align-items: center; gap: .6rem; padding-top: .9rem; padding-bottom: .9rem; }
+.bar .brand { color: #fff; font-weight: 900; font-size: 1.3rem; text-decoration: none; }
+.bar .brand b { color: var(--amber); }
+.bar .back { margin-left: auto; color: rgba(255,255,255,.85); text-decoration: none; font-weight: 600; }
+.bar .back:hover { color: var(--amber); }
+
+/* Rechtstexte */
+.legal { background: var(--card); border-radius: 20px; padding: 1.2rem 1.6rem 2rem; margin: 2rem auto; box-shadow: 0 4px 0 #e7dfd2; }
+.legal h1 { font-size: 1.8rem; line-height: 1.2; margin: .8rem 0 .3rem; }
+.legal h2 { font-size: 1.15rem; margin-top: 1.8rem; }
+.stand { color: var(--muted); margin-top: 0; }
+
+footer { text-align: center; color: var(--muted); padding: 1rem 1rem 2.5rem; }
